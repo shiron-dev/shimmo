@@ -18,14 +18,13 @@ repositories {
         name = "sonatype"
         setUrl("https://oss.sonatype.org/content/groups/public/")
     }
-    maven("https://repo.papermc.io/repository/maven-public/")
 }
 
 dependencies {
     testImplementation(kotlin("test"))
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
+    @Suppress("VulnerableLibrariesLocal")
     compileOnly("org.spigotmc:spigot-api:1.19.3-R0.1-SNAPSHOT")
-    compileOnly("io.papermc.paper:paper-api:1.19.3-R0.1-SNAPSHOT")
 }
 
 tasks.test {
