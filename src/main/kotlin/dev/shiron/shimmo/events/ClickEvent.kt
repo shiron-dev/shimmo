@@ -21,16 +21,14 @@ class ClickEvent : Listener {
                     player.sendMessage("You just killed yourself")
                 }
 
-                Material.BREAD -> {
+                Material.DIAMOND_AXE -> {
                     player.closeInventory()
-                    player.foodLevel = 20
-                    player.sendMessage("Yum!")
+                    player.inventory.addItem(ItemManager.supperAxe.item)
                 }
 
                 Material.STICK -> {
                     player.closeInventory()
                     player.inventory.addItem(ItemManager.menuStick.item)
-                    player.sendMessage("Give you")
                 }
 
                 else -> {

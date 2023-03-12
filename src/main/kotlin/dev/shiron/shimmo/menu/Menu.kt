@@ -15,8 +15,8 @@ class Menu {
             val gui = Bukkit.createInventory(player, 9, menuTitle)
 
             val menuStick = ItemManager.menuStick.item
+            val axe = ItemManager.supperAxe.item
             val suicide = ItemStack(Material.TNT)
-            val feed = ItemStack(Material.BREAD)
 
             val suicideMeta = suicide.itemMeta
             suicideMeta?.setDisplayName("${ChatColor.RED}Suicide")
@@ -24,7 +24,7 @@ class Menu {
             suicideMeta?.lore = suicideLore
             suicide.itemMeta = suicideMeta
 
-            val menuItems = listOf(menuStick, suicide, feed)
+            val menuItems = listOf(menuStick, axe, suicide)
             gui.contents = menuItems.toTypedArray()
 
             player.openInventory(gui)

@@ -14,6 +14,7 @@ class MenuStick : ItemClass() {
     override val item: ItemStack = ItemStack(Material.STICK, 1)
 
     init {
+        customItemTag = "menu_stick"
         val meta = item.itemMeta
         meta?.setDisplayName("Menu stick")
         meta?.lore = listOf("この棒を持って右クリックでメニューを開きます。")
@@ -27,4 +28,5 @@ class MenuStick : ItemClass() {
             Menu.openMenu(event.player)
         }
     }
+
 }
