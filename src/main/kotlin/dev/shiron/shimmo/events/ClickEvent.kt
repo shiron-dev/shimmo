@@ -1,11 +1,11 @@
 package dev.shiron.shimmo.events
 
-import org.bukkit.ChatColor
+import dev.shiron.shimmo.items.ItemManager
+import dev.shiron.shimmo.menu.Menu
 import org.bukkit.Material
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
 import org.bukkit.event.inventory.InventoryClickEvent
-import org.bukkit.inventory.ItemStack
 
 class ClickEvent : Listener {
     @EventHandler
@@ -13,7 +13,7 @@ class ClickEvent : Listener {
 
         val player = event.whoClicked
 
-        if (event.view.title == "${ChatColor.AQUA}Menu") {
+        if (event.view.title == Menu.menuTitle) {
             when (event.currentItem?.type) {
                 Material.TNT -> {
                     player.closeInventory()
@@ -27,9 +27,9 @@ class ClickEvent : Listener {
                     player.sendMessage("Yum!")
                 }
 
-                Material.DIAMOND_SWORD -> {
+                Material.STICK -> {
                     player.closeInventory()
-                    player.inventory.addItem(ItemStack(Material.DIAMOND_SWORD))
+                    player.inventory.addItem(ItemManager.menuStick.item)
                     player.sendMessage("Give you")
                 }
 

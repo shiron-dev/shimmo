@@ -2,6 +2,7 @@ package dev.shiron.shimmo
 
 import dev.shiron.shimmo.commands.MenuCommand
 import dev.shiron.shimmo.events.ClickEvent
+import dev.shiron.shimmo.items.ItemManager
 import org.bukkit.plugin.java.JavaPlugin
 
 
@@ -11,6 +12,7 @@ class Shimmo : JavaPlugin() {
         getCommand("menu")?.setExecutor(MenuCommand())
 
         server.pluginManager.registerEvents(ClickEvent(), this)
+        server.pluginManager.registerEvents(ItemManager.menuStick, this)
     }
 
     override fun onDisable() {
