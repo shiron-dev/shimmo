@@ -20,7 +20,7 @@ class SupperSword : ItemClass() {
     override val item = ItemStack(Material.DIAMOND_SWORD)
 
     init {
-        customItemTag = "supper_axe"
+        customItemTag = "supper_sword"
         val meta = itemMeta
         meta?.setDisplayName("${ChatColor.GOLD}Supper sword")
         meta?.lore = listOf("すごい剣")
