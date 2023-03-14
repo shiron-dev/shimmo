@@ -24,7 +24,7 @@ class Menu {
             suicideMeta?.lore = suicideLore
             suicide.itemMeta = suicideMeta
 
-            val menuItems = listOf(menuStick, axe, suicide)
+            val menuItems = listOf(menuStick, axe, suicide, ItemManager.supperSword.item)
             gui.contents = menuItems.toTypedArray()
 
             player.openInventory(gui)

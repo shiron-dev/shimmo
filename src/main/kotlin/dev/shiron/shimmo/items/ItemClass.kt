@@ -2,9 +2,11 @@ package dev.shiron.shimmo.items
 
 import dev.shiron.shimmo.Shimmo
 import org.bukkit.NamespacedKey
+import org.bukkit.entity.Player
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
 import org.bukkit.event.block.BlockBreakEvent
+import org.bukkit.event.entity.EntityDamageByEntityEvent
 import org.bukkit.event.player.PlayerInteractEvent
 import org.bukkit.inventory.ItemStack
 import org.bukkit.inventory.meta.ItemMeta
@@ -34,14 +36,17 @@ abstract class ItemClass : Listener {
         return item?.itemMeta?.persistentDataContainer?.get(customKey, PersistentDataType.STRING) == customItemTag
     }
 
+    open fun onClick(event: PlayerInteractEvent) {}
+    open fun onBreak(event: BlockBreakEvent) {}
+
+    open fun onEntityDamageByEntity(event: EntityDamageByEntityEvent) {}
+
     @EventHandler
     fun onClickEvent(event: PlayerInteractEvent) {
         if (isThisItem(event.item)) {
             onClick(event)
         }
     }
-
-    open fun onClick(event: PlayerInteractEvent) {}
 
     @EventHandler
     fun onBreakEvent(event: BlockBreakEvent) {
@@ -50,5 +55,11 @@ abstract class ItemClass : Listener {
         }
     }
 
-    open fun onBreak(event: BlockBreakEvent) {}
+    @EventHandler
+    fun onEntityDamageByEntityEvent(event: EntityDamageByEntityEvent) {
+        if (event.damager is Player && isThisItem((event.damager as Player).equipment?.itemInMainHand)) {
+            onEntityDamageByEntity(event)
+        }
+    }
+
 }

@@ -31,6 +31,11 @@ class ClickEvent : Listener {
                     player.inventory.addItem(ItemManager.menuStick.item)
                 }
 
+                Material.DIAMOND_SWORD -> {
+                    player.closeInventory()
+                    player.inventory.addItem(ItemManager.supperSword.item)
+                }
+
                 else -> {
 
                 }
