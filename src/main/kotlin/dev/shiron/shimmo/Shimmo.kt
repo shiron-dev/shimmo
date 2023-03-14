@@ -16,6 +16,7 @@ class Shimmo : JavaPlugin() {
         server.pluginManager.registerEvents(ItemManager.menuStick, this)
         server.pluginManager.registerEvents(ItemManager.supperAxe, this)
         server.pluginManager.registerEvents(ItemManager.supperSword, this)
+        server.pluginManager.registerEvents(ItemManager.wandOfThunder, this)
     }
 
     override fun onDisable() {

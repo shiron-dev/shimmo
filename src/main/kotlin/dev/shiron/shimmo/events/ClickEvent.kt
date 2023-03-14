@@ -36,6 +36,11 @@ class ClickEvent : Listener {
                     player.inventory.addItem(ItemManager.supperSword.item)
                 }
 
+                Material.CARROT_ON_A_STICK->{
+                    player.closeInventory()
+                    player.inventory.addItem(ItemManager.wandOfThunder.item)
+                }
+
                 else -> {
 
                 }
