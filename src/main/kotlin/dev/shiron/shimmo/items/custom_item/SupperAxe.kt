@@ -1,25 +1,19 @@
 package dev.shiron.shimmo.items.custom_item
 
+import dev.shiron.shimmo.items.CustomMaterial
 import dev.shiron.shimmo.items.ItemClass
 import org.bukkit.*
 import org.bukkit.block.data.type.Leaves
-import org.bukkit.enchantments.Enchantment
 import org.bukkit.event.block.BlockBreakEvent
-import org.bukkit.inventory.ItemFlag
 import org.bukkit.inventory.ItemStack
 import kotlin.math.abs
 
 class SupperAxe : ItemClass() {
     override val item: ItemStack = ItemStack(Material.DIAMOND_AXE, 1)
+    override val customMaterial = CustomMaterial.SuperAxe
 
     init {
-        customItemTag = "supper_axe"
-        val meta = itemMeta
-        meta?.setDisplayName("${ChatColor.GOLD}Supper axe")
-        meta?.lore = listOf("木を一括破壊できます。")
-        meta?.addEnchant(Enchantment.LUCK, 1, false)
-        meta?.addItemFlags(ItemFlag.HIDE_ENCHANTS)
-        itemMeta = meta
+        setItem("${ChatColor.GOLD}Supper axe", listOf("木を一括破壊できます。"))
     }
 
     override fun onBreak(event: BlockBreakEvent) {

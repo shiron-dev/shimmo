@@ -1,11 +1,12 @@
 package dev.shiron.shimmo.events
 
+import dev.shiron.shimmo.items.CustomMaterial
 import dev.shiron.shimmo.items.ItemManager
 import dev.shiron.shimmo.menu.Menu
-import org.bukkit.Material
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
 import org.bukkit.event.inventory.InventoryClickEvent
+import org.bukkit.persistence.PersistentDataType
 
 class ClickEvent : Listener {
     @EventHandler
@@ -14,37 +15,12 @@ class ClickEvent : Listener {
         val player = event.whoClicked
 
         if (event.view.title == Menu.menuTitle) {
-            when (event.currentItem?.type) {
-                Material.TNT -> {
-                    player.closeInventory()
-                    player.health = 0.0
-                    player.sendMessage("You just killed yourself")
-                }
-
-                Material.DIAMOND_AXE -> {
-                    player.closeInventory()
-                    player.inventory.addItem(ItemManager.supperAxe.item)
-                }
-
-                Material.STICK -> {
-                    player.closeInventory()
-                    player.inventory.addItem(ItemManager.menuStick.item)
-                }
-
-                Material.DIAMOND_SWORD -> {
-                    player.closeInventory()
-                    player.inventory.addItem(ItemManager.supperSword.item)
-                }
-
-                Material.CARROT_ON_A_STICK->{
-                    player.closeInventory()
-                    player.inventory.addItem(ItemManager.wandOfThunder.item)
-                }
-
-                else -> {
-
-                }
-            }
+            val customMaterial = event.currentItem?.itemMeta?.persistentDataContainer?.get(
+                ItemManager.customKey,
+                PersistentDataType.STRING
+            )
+                ?.let { CustomMaterial[it] }
+            player.inventory.addItem(customMaterial?.let { ItemManager.getItem(it)?.item })
 
             event.isCancelled = true
         }

@@ -1,28 +1,22 @@
 package dev.shiron.shimmo.items.custom_item
 
+import dev.shiron.shimmo.items.CustomMaterial
 import dev.shiron.shimmo.items.ItemClass
 import org.bukkit.ChatColor
 import org.bukkit.FluidCollisionMode
 import org.bukkit.Material
-import org.bukkit.enchantments.Enchantment
 import org.bukkit.entity.LivingEntity
 import org.bukkit.event.block.Action
 import org.bukkit.event.player.PlayerInteractEvent
-import org.bukkit.inventory.ItemFlag
 import org.bukkit.inventory.ItemStack
 
 
 class WandOfThunder : ItemClass() {
     override val item = ItemStack(Material.CARROT_ON_A_STICK)
+    override val customMaterial = CustomMaterial.WandOfThunder
 
     init {
-        customItemTag = "wand_of_thunder"
-        val meta = itemMeta
-        meta?.setDisplayName("${ChatColor.GOLD}Wand of thunder")
-        meta?.lore = listOf("雷の杖")
-        meta?.addEnchant(Enchantment.LUCK, 1, false)
-        meta?.addItemFlags(ItemFlag.HIDE_ENCHANTS)
-        itemMeta = meta
+        setItem("${ChatColor.GOLD}Wand of thunder", listOf("雷の杖"))
     }
 
     override fun onClick(event: PlayerInteractEvent) {

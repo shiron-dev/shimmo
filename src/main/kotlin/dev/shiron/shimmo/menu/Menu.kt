@@ -1,11 +1,10 @@
 package dev.shiron.shimmo.menu
 
+import dev.shiron.shimmo.items.CustomMaterial
 import dev.shiron.shimmo.items.ItemManager
 import org.bukkit.Bukkit
 import org.bukkit.ChatColor
-import org.bukkit.Material
 import org.bukkit.entity.Player
-import org.bukkit.inventory.ItemStack
 
 class Menu {
     companion object {
@@ -14,17 +13,13 @@ class Menu {
         fun openMenu(player: Player) {
             val gui = Bukkit.createInventory(player, 9, menuTitle)
 
-            val menuStick = ItemManager.menuStick.item
-            val axe = ItemManager.supperAxe.item
-            val suicide = ItemStack(Material.TNT)
-
-            val suicideMeta = suicide.itemMeta
-            suicideMeta?.setDisplayName("${ChatColor.RED}Suicide")
-            val suicideLore = listOf("${ChatColor.GOLD}Kill yourself.")
-            suicideMeta?.lore = suicideLore
-            suicide.itemMeta = suicideMeta
-
-            val menuItems = listOf(menuStick, axe, suicide, ItemManager.supperSword.item, ItemManager.wandOfThunder.item)
+            val menuItems =
+                listOf(
+                    ItemManager.getItem(CustomMaterial.MenuStick)?.item,
+                    ItemManager.getItem(CustomMaterial.SuperAxe)?.item,
+                    ItemManager.getItem(CustomMaterial.SuperSword)?.item,
+                    ItemManager.getItem(CustomMaterial.WandOfThunder)?.item
+                )
             gui.contents = menuItems.toTypedArray()
 
             player.openInventory(gui)
