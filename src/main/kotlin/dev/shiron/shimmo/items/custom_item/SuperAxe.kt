@@ -8,12 +8,12 @@ import org.bukkit.event.block.BlockBreakEvent
 import org.bukkit.inventory.ItemStack
 import kotlin.math.abs
 
-class SupperAxe : ItemClass() {
+class SuperAxe : ItemClass() {
     override val item: ItemStack = ItemStack(Material.DIAMOND_AXE, 1)
     override val customMaterial = CustomMaterial.SuperAxe
 
     init {
-        setItem("${ChatColor.GOLD}Supper axe", listOf("木を一括破壊できます。"))
+        setItem("${ChatColor.GOLD}Super axe", listOf("木を一括破壊できます。"))
     }
 
     override fun onBreak(event: BlockBreakEvent) {
