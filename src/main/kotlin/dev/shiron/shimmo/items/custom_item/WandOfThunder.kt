@@ -24,7 +24,6 @@ class WandOfThunder : ItemClass() {
             val player = event.player
             val maxDistance = 20.0
             val range = 2.0
-            player.sendMessage("雷を召喚！")
             val result =
                 player.world.rayTrace(
                     player.location.add(player.location.direction.setY(0).multiply(2)).add(0.0, 1.5, 0.0),
@@ -36,6 +35,7 @@ class WandOfThunder : ItemClass() {
                     null
                 ) ?: return
 
+            player.sendMessage("雷を召喚！")
             val rayLocation = result.hitPosition.toLocation(player.world)
 
             // ブロックが燃えないようにエフェクトだけ
