@@ -18,6 +18,7 @@ class Menu {
                     ItemManager.getItem(CustomMaterial.MenuStick)?.item,
                     ItemManager.getItem(CustomMaterial.SuperAxe)?.item,
                     ItemManager.getItem(CustomMaterial.SuperSword)?.item,
+                    ItemManager.getItem(CustomMaterial.SupperPickaxe)?.item,
                     ItemManager.getItem(CustomMaterial.WandOfThunder)?.item
                 )
             gui.contents = menuItems.toTypedArray()
