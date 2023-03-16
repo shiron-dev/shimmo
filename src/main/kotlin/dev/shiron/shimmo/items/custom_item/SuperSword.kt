@@ -66,19 +66,20 @@ class SuperSword : ItemClass() {
 }
 
 class PlayerRotation(private val player: Player, private val onFinish: () -> Unit) : BukkitRunnable() {
-    private val originLocation = player.location
     private var yaw = 0f
+    private val initYaw = player.location.yaw
     private val speed = 30
     override fun run() {
         yaw += speed
         if (yaw > 360) {
-            player.teleport(originLocation)
+            player.location.yaw = initYaw
+            player.teleport(player.location)
             onFinish()
             cancel()
         }
 
-        val location = originLocation
+        val location = player.location
         location.yaw = yaw
-        player.teleport(originLocation)
+        player.teleport(location)
     }
 }
