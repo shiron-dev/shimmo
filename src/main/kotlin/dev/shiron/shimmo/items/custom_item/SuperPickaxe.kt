@@ -7,7 +7,9 @@ import dev.shiron.shimmo.util.secToTick
 import org.bukkit.Material
 import org.bukkit.Particle
 import org.bukkit.Sound
+import org.bukkit.block.Block
 import org.bukkit.entity.EntityType
+import org.bukkit.entity.TNTPrimed
 import org.bukkit.event.EventHandler
 import org.bukkit.event.block.Action
 import org.bukkit.event.entity.EntityDamageByEntityEvent
@@ -16,6 +18,7 @@ import org.bukkit.event.hanging.HangingBreakByEntityEvent
 import org.bukkit.event.player.PlayerInteractEvent
 import org.bukkit.inventory.ItemStack
 import org.bukkit.persistence.PersistentDataType
+import kotlin.math.sqrt
 
 
 class SuperPickaxe : ItemClass() {
@@ -31,11 +34,14 @@ class SuperPickaxe : ItemClass() {
             val location = event.clickedBlock?.location?.add(event.blockFace.direction) ?: return
             val world = event.player.world
             if (event.clickedBlock?.type != Material.STONE) {
-                event.player.sendMessage("石に右クリックで発動します。")
+                event.player.sendMessage("石に右クリックで発動します")
             } else if (world.getBlockAt(location).type == Material.AIR) {
                 event.player.sendMessage("TNT採掘！")
                 val entity = world.spawnEntity(location, EntityType.PRIMED_TNT)
                 entity.persistentDataContainer.set(EntityManager.customKey, PersistentDataType.STRING, "mining_tnt")
+                if (entity is TNTPrimed) {
+                    entity.customName = event.player.name
+                }
             }
         }
     }
@@ -54,9 +60,33 @@ class SuperPickaxe : ItemClass() {
                 world.spawnParticle(Particle.EXPLOSION_LARGE, entity.location, secToTick(1f))
                 world.playSound(entity.location, Sound.ENTITY_GENERIC_EXPLODE, 1f, 1f)
 
-                event.blockList().removeIf { it.type != Material.STONE }
-                for (block in event.blockList()) {
+                val radius = 3
+                val breakBlock = mutableListOf<Block>()
+
+                for (x in -radius..radius) {
+                    for (y in -radius..radius) {
+                        for (z in -radius..radius) {
+                            if (sqrt((x * x + y * y + z * z).toDouble()) <= radius) {
+                                val location = entity.location.clone().add(x.toDouble(), y.toDouble(), z.toDouble())
+                                val block = world.getBlockAt(location)
+                                if (block.type == Material.STONE) {
+                                    breakBlock.add(block)
+                                }
+                            }
+                        }
+                    }
+                }
+                for (block in breakBlock) {
                     block.breakNaturally()
+                }
+
+                if (entity is TNTPrimed) {
+                    val player = entity.world.players.find { it.name == entity.customName }
+                    player?.let {
+                        if (entity.location.distance(it.location) < radius * 2) {
+                            it.damage(20.0, entity)
+                        }
+                    }
                 }
 
                 event.isCancelled = true
@@ -72,7 +102,7 @@ class SuperPickaxe : ItemClass() {
                     PersistentDataType.STRING
                 ) == "mining_tnt"
             ) {
-                if (event.entityType != EntityType.DROPPED_ITEM) {
+                if (event.entityType != EntityType.DROPPED_ITEM || event.entityType != EntityType.PLAYER) {
                     event.isCancelled = true
                 }
             }
@@ -89,5 +119,4 @@ class SuperPickaxe : ItemClass() {
             event.isCancelled = true
         }
     }
-
 }
