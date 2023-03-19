@@ -15,7 +15,7 @@ class MenuStick : ItemClass() {
     override val customMaterial = CustomMaterial.MenuStick
 
     init {
-        setItem("${ChatColor.DARK_PURPLE}Menu stick", listOf("この棒を持って右クリックでメニューを開きます。"))
+        setItem("${ChatColor.DARK_PURPLE}Menu stick", listOf("この棒を持ってe右クリックでメニューを開きます。"))
     }
 
     override fun onClick(event: PlayerInteractEvent) {
