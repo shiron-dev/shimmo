@@ -9,10 +9,10 @@ import org.bukkit.Particle
 import org.bukkit.Sound
 import org.bukkit.block.Block
 import org.bukkit.entity.EntityType
+import org.bukkit.entity.Player
 import org.bukkit.entity.TNTPrimed
 import org.bukkit.event.EventHandler
 import org.bukkit.event.block.Action
-import org.bukkit.event.entity.EntityDamageByEntityEvent
 import org.bukkit.event.entity.EntityExplodeEvent
 import org.bukkit.event.hanging.HangingBreakByEntityEvent
 import org.bukkit.event.player.PlayerInteractEvent
@@ -63,6 +63,15 @@ class SuperPickaxe : ItemClass() {
                 val radius = 3
                 val breakBlock = mutableListOf<Block>()
 
+                for (e in world.getNearbyEntities(entity.location, radius * 1.5, radius * 1.5, radius * 1.5)) {
+                    if (e.type == EntityType.PLAYER && e is Player) {
+                        e.damage(20.0, entity)
+                    }
+                    if (e.type == EntityType.DROPPED_ITEM) {
+                        e.remove()
+                    }
+                }
+
                 for (x in -radius..radius) {
                     for (y in -radius..radius) {
                         for (z in -radius..radius) {
@@ -80,31 +89,7 @@ class SuperPickaxe : ItemClass() {
                     block.breakNaturally()
                 }
 
-                if (entity is TNTPrimed) {
-                    val player = entity.world.players.find { it.name == entity.customName }
-                    player?.let {
-                        if (entity.location.distance(it.location) < radius * 2) {
-                            it.damage(20.0, entity)
-                        }
-                    }
-                }
-
                 event.isCancelled = true
-            }
-        }
-    }
-
-    @EventHandler
-    fun onDamageByTNT(event: EntityDamageByEntityEvent) {
-        if (event.damager.type == EntityType.PRIMED_TNT) {
-            if (event.damager.persistentDataContainer.get(
-                    EntityManager.customKey,
-                    PersistentDataType.STRING
-                ) == "mining_tnt"
-            ) {
-                if (event.entityType != EntityType.DROPPED_ITEM || event.entityType != EntityType.PLAYER) {
-                    event.isCancelled = true
-                }
             }
         }
     }
