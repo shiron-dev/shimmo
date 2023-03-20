@@ -63,7 +63,7 @@ class SuperPickaxe : ItemClass() {
                 val world = entity.world
 
                 world.spawnParticle(Particle.EXPLOSION_LARGE, entity.location, secToTick(1f))
-                world.playSound(entity.location, Sound.ENTITY_GENERIC_EXPLODE, 1f, 1f)
+                world.playSound(entity.location, Sound.ENTITY_GENERIC_EXPLODE, 2f, 1f)
 
                 val radius = 3
                 val breakBlock = mutableListOf<Block>()
