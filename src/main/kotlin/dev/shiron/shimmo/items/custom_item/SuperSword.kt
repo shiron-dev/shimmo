@@ -70,15 +70,14 @@ class PlayerRotation(private val player: Player, private val onFinish: () -> Uni
     private val speed = 30
     override fun run() {
         yaw += speed
+        val location = player.location
         if (yaw > 360) {
-            player.location.yaw = initYaw
-            player.teleport(player.location)
+            location.yaw = initYaw
             onFinish()
             cancel()
+        } else {
+            location.yaw = initYaw + yaw
         }
-
-        val location = player.location
-        location.yaw = yaw
         player.teleport(location)
     }
 }
