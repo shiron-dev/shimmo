@@ -14,7 +14,7 @@ class ItemManager {
         }
 
         fun getItem(customMaterial: CustomMaterial): ItemClass? {
-            return items.find { it.customMaterial == customMaterial }
+            return items.find { it.customItemTag == customMaterial }
         }
     }
 }

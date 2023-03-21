@@ -17,7 +17,7 @@ import org.bukkit.scheduler.BukkitRunnable
 
 class SuperSword : ItemClass() {
     override val item = ItemStack(Material.DIAMOND_SWORD)
-    override val customMaterial = CustomMaterial.SuperSword
+    override val customItemTag = CustomMaterial.SuperSword
 
     init {
         setItem("${ChatColor.GOLD}Super sword", listOf("すごい剣"))

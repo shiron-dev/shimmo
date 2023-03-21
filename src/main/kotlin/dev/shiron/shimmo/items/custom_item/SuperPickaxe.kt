@@ -28,7 +28,7 @@ import kotlin.math.sqrt
 
 class SuperPickaxe : ItemClass() {
     override val item = ItemStack(Material.DIAMOND_PICKAXE, 1)
-    override val customMaterial = CustomMaterial.SupperPickaxe
+    override val customItemTag = CustomMaterial.SupperPickaxe
 
     init {
         setItem("Super pickaxe", listOf("すごいツルハシ"))

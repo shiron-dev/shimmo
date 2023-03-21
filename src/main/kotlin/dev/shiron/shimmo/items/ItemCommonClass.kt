@@ -3,24 +3,17 @@ package dev.shiron.shimmo.items
 import org.bukkit.enchantments.Enchantment
 import org.bukkit.inventory.ItemFlag
 import org.bukkit.inventory.ItemStack
-import org.bukkit.persistence.PersistentDataType
 
 abstract class ItemCommonClass {
     abstract val item: ItemStack
-    abstract val customMaterial: CustomItemTags
+    abstract val customItemTag: CustomItemTags
 
-    private var customItemTag: String?
-        get() {
-            return item.itemMeta?.persistentDataContainer?.get(ItemManager.customKey, PersistentDataType.STRING)
-        }
-        set(value) {
-            val meta = item.itemMeta
-            value?.let { meta?.persistentDataContainer?.set(ItemManager.customKey, PersistentDataType.STRING, it) }
-            item.itemMeta = meta
-        }
+    abstract fun getCustomItemTagString(): String?
 
-    fun setItem(name: String, lore: List<String>) {
-        customItemTag = customMaterial.customTag
+    abstract fun setCustomItemTagString(value: String)
+
+    fun setItem(name: String, lore: List<String>? = null) {
+        setCustomItemTagString(customItemTag.customTag)
         val meta = item.itemMeta
         meta?.setDisplayName(name)
         meta?.lore = lore
@@ -29,10 +22,5 @@ abstract class ItemCommonClass {
         item.itemMeta = meta
     }
 
-    protected fun isThisItem(item: ItemStack?): Boolean {
-        return item?.itemMeta?.persistentDataContainer?.get(
-            ItemManager.customKey,
-            PersistentDataType.STRING
-        ) == customItemTag
-    }
+    abstract fun isThisItem(item: ItemStack?): Boolean
 }

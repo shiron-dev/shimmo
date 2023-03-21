@@ -13,7 +13,7 @@ import org.bukkit.inventory.ItemStack
 
 class WandOfThunder : ItemClass() {
     override val item = ItemStack(Material.CARROT_ON_A_STICK)
-    override val customMaterial = CustomMaterial.WandOfThunder
+    override val customItemTag = CustomMaterial.WandOfThunder
 
     init {
         setItem("${ChatColor.GOLD}Wand of thunder", listOf("雷の杖"))

@@ -10,7 +10,7 @@ import kotlin.math.abs
 
 class SuperAxe : ItemClass() {
     override val item: ItemStack = ItemStack(Material.DIAMOND_AXE, 1)
-    override val customMaterial = CustomMaterial.SuperAxe
+    override val customItemTag = CustomMaterial.SuperAxe
 
     init {
         setItem("${ChatColor.GOLD}Super axe", listOf("木を一括破壊できます。"))

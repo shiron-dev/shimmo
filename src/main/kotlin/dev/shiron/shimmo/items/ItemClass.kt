@@ -6,8 +6,20 @@ import org.bukkit.event.Listener
 import org.bukkit.event.block.BlockBreakEvent
 import org.bukkit.event.entity.EntityDamageByEntityEvent
 import org.bukkit.event.player.PlayerInteractEvent
+import org.bukkit.inventory.ItemStack
+import org.bukkit.persistence.PersistentDataType
 
 abstract class ItemClass : ItemCommonClass(), Listener {
+
+    override fun getCustomItemTagString(): String? {
+        return item.itemMeta?.persistentDataContainer?.get(ItemManager.customKey, PersistentDataType.STRING)
+    }
+
+    override fun setCustomItemTagString(value: String) {
+        val meta = item.itemMeta
+        meta?.persistentDataContainer?.set(ItemManager.customKey, PersistentDataType.STRING, value)
+        item.itemMeta = meta
+    }
 
     open fun onClick(event: PlayerInteractEvent) {}
     open fun onBreak(event: BlockBreakEvent) {}
@@ -35,4 +47,10 @@ abstract class ItemClass : ItemCommonClass(), Listener {
         }
     }
 
+    override fun isThisItem(item: ItemStack?): Boolean {
+        return item?.itemMeta?.persistentDataContainer?.get(
+            ItemManager.customKey,
+            PersistentDataType.STRING
+        ) == getCustomItemTagString()
+    }
 }
