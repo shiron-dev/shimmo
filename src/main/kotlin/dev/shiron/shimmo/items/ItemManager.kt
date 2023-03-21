@@ -19,7 +19,7 @@ class ItemManager {
     }
 }
 
-enum class CustomMaterial(val customItemTag: String) {
+enum class CustomMaterial(override val customTag: String) : CustomItemTags {
     MenuStick("menu_stick"),
     SuperAxe("super_axe"),
     SuperSword("super_sword"),
@@ -28,6 +28,6 @@ enum class CustomMaterial(val customItemTag: String) {
 
     companion object {
         operator fun get(customItemTag: String): CustomMaterial? =
-            values().find { it.customItemTag == customItemTag }
+            values().find { it.customTag == customItemTag }
     }
 }

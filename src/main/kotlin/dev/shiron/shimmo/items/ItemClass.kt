@@ -1,46 +1,13 @@
 package dev.shiron.shimmo.items
 
-import org.bukkit.enchantments.Enchantment
 import org.bukkit.entity.Player
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
 import org.bukkit.event.block.BlockBreakEvent
 import org.bukkit.event.entity.EntityDamageByEntityEvent
 import org.bukkit.event.player.PlayerInteractEvent
-import org.bukkit.inventory.ItemFlag
-import org.bukkit.inventory.ItemStack
-import org.bukkit.persistence.PersistentDataType
 
-abstract class ItemClass : Listener {
-    abstract val item: ItemStack
-    abstract val customMaterial: CustomMaterial
-
-    private var customItemTag: String?
-        get() {
-            return item.itemMeta?.persistentDataContainer?.get(ItemManager.customKey, PersistentDataType.STRING)
-        }
-        set(value) {
-            val meta = item.itemMeta
-            value?.let { meta?.persistentDataContainer?.set(ItemManager.customKey, PersistentDataType.STRING, it) }
-            item.itemMeta = meta
-        }
-
-    fun setItem(name: String, lore: List<String>) {
-        customItemTag = customMaterial.customItemTag
-        val meta = item.itemMeta
-        meta?.setDisplayName(name)
-        meta?.lore = lore
-        meta?.addEnchant(Enchantment.LUCK, 1, false)
-        meta?.addItemFlags(ItemFlag.HIDE_ENCHANTS)
-        item.itemMeta = meta
-    }
-
-    private fun isThisItem(item: ItemStack?): Boolean {
-        return item?.itemMeta?.persistentDataContainer?.get(
-            ItemManager.customKey,
-            PersistentDataType.STRING
-        ) == customItemTag
-    }
+abstract class ItemClass : ItemCommonClass(), Listener {
 
     open fun onClick(event: PlayerInteractEvent) {}
     open fun onBreak(event: BlockBreakEvent) {}
