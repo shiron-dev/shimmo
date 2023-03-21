@@ -56,9 +56,8 @@ class SuperSword : ItemClass() {
 
             for (e in targetEntities) {
                 if (e is Player) continue
-                e.health -= event.finalDamage
                 e.velocity = e.velocity.setY(1)
-                e.damage(0.0)
+                e.damage(event.finalDamage)
             }
             event.isCancelled = true
         }

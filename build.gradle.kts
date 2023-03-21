@@ -18,6 +18,9 @@ repositories {
         name = "sonatype"
         setUrl("https://oss.sonatype.org/content/groups/public/")
     }
+    maven {
+        setUrl("https://repo.codemc.io/repository/maven-public/")
+    }
 }
 
 dependencies {
@@ -25,6 +28,8 @@ dependencies {
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
     @Suppress("VulnerableLibrariesLocal")
     compileOnly("org.spigotmc:spigot-api:1.19.3-R0.1-SNAPSHOT")
+
+    compileOnly("me.filoghost.holographicdisplays:holographicdisplays-api:3.0.0")
 }
 
 tasks.test {
