@@ -1,10 +1,12 @@
 package dev.shiron.shimmo.menu
 
+import dev.shiron.shimmo.menu.custom_menus.ItemMenu
+import dev.shiron.shimmo.menu.custom_menus.MainMenu
 import org.bukkit.ChatColor
 
 class MenuManager {
     companion object {
-        val menus by lazy { listOf(MainMenu()) }
+        val menus by lazy { listOf(MainMenu(), ItemMenu()) }
 
         fun getMenu(menuTag: MenuTag): ShimmoGUI? {
             return menus.find { it.menuTag == menuTag }
@@ -13,7 +15,8 @@ class MenuManager {
 }
 
 enum class MenuTag(val menuTitle: String) {
-    MAIN_MENU("${ChatColor.AQUA}Shimmo Menu");
+    MAIN_MENU("${ChatColor.AQUA}Shimmo Menu"),
+    ITEM_MENU("${ChatColor.AQUA}Shimmo Item Menu");
 
     companion object {
         operator fun get(menuTitle: String): MenuTag? =

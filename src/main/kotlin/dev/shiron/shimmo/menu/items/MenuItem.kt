@@ -1,7 +1,6 @@
-package dev.shiron.shimmo.menu
+package dev.shiron.shimmo.menu.items
 
 import dev.shiron.shimmo.items.ItemCommonClass
-import dev.shiron.shimmo.menu.items.MenuItemManager
 import org.bukkit.event.inventory.InventoryClickEvent
 import org.bukkit.inventory.ItemStack
 import org.bukkit.persistence.PersistentDataType
