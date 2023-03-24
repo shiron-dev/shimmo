@@ -5,6 +5,7 @@ import dev.shiron.shimmo.util.secToTick
 import dev.shiron.shimmo.util.setEntityName
 import me.filoghost.holographicdisplays.api.HolographicDisplaysAPI
 import me.filoghost.holographicdisplays.api.hologram.Hologram
+import org.bukkit.ChatColor
 import org.bukkit.NamespacedKey
 import org.bukkit.entity.LivingEntity
 import org.bukkit.event.EventHandler
@@ -20,6 +21,9 @@ class EntityManager : Listener {
     companion object {
         val customKey by lazy {
             NamespacedKey(JavaPlugin.getPlugin(Shimmo::class.java), "shimmo_custom_entity_key")
+        }
+        val customNameKey by lazy {
+            NamespacedKey(JavaPlugin.getPlugin(Shimmo::class.java), "shimmo_custom_entity_name_key")
         }
     }
 
@@ -45,7 +49,7 @@ class EntityManager : Listener {
             val hologramManager = HolographicDisplaysAPI.get(plugin)
             val location = entity.getLocation().add(0.0, 1.5, 0.0)
             val hologram = hologramManager.createHologram(location)
-            hologram.lines.appendText("${round(event.finalDamage * 10) / 10}")
+            hologram.lines.appendText("${ChatColor.RED}${round(event.finalDamage * 10) / 10}")
 
             HologramDeleter(hologram).runTaskLater(plugin, secToTick(1f).toLong())
         }
