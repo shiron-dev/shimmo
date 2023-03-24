@@ -10,8 +10,9 @@ import kotlin.math.max
 fun setEntityName(entity: LivingEntity, health: Double? = null) {
     val healthStr = toUnitString(max(0.0, health ?: entity.health))
     val maxHealth = entity.getAttribute(Attribute.GENERIC_MAX_HEALTH)?.value?.let { toUnitString(it) }
-    val name = entity.persistentDataContainer.get(EntityManager.customNameKey, PersistentDataType.STRING) ?: entity.name
+    val name = entity.persistentDataContainer.get(EntityManager.customNameKey, PersistentDataType.STRING)
+        ?.let { "${ChatColor.GOLD}$it" } ?: "${ChatColor.WHITE}${entity.type.name}"
     entity.customName =
-        "${ChatColor.WHITE}$name ${ChatColor.GREEN}$healthStr/$maxHealth"
+        "$name ${ChatColor.GREEN}$healthStr/$maxHealth"
     entity.isCustomNameVisible = true
 }
