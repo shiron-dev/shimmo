@@ -7,7 +7,16 @@ import org.bukkit.plugin.java.JavaPlugin
 
 class ItemManager {
     companion object {
-        val items by lazy { listOf(MenuStick(), SuperAxe(), SuperSword(), SuperPickaxe(), WandOfThunder()) }
+        val items by lazy {
+            listOf(
+                MenuStick(),
+                SuperAxe(),
+                SuperSword(),
+                SuperPickaxe(),
+                WandOfThunder(),
+                CustomCreatureSpawnEgg()
+            )
+        }
 
         val customKey by lazy {
             NamespacedKey(JavaPlugin.getPlugin(Shimmo::class.java), "shimmo_custom_item_key")
@@ -24,7 +33,8 @@ enum class CustomMaterial(override val customTag: String) : CustomItemTags {
     SuperAxe("super_axe"),
     SuperSword("super_sword"),
     SupperPickaxe("super_pickaxe"),
-    WandOfThunder("wand_of_thunder");
+    WandOfThunder("wand_of_thunder"),
+    CustomCreatureSpawnEgg("custom_creature_spawn_egg");
 
     companion object {
         operator fun get(customItemTag: String): CustomMaterial? =

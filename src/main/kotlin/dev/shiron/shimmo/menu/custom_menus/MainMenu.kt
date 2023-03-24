@@ -13,6 +13,9 @@ class MainMenu : ShimmoGUI() {
         listOf(
             MenuButton(ItemStack(Material.CHEST), "Item Menuへ", "to_item_menu") {
                 MenuManager.getMenu(MenuTag.ITEM_MENU)?.openMenu(it.whoClicked)
+            },
+            MenuButton(ItemStack(Material.CHICKEN_SPAWN_EGG), "Creature Menuへ", "to_creature_menu") {
+                MenuManager.getMenu(MenuTag.CREATURE_MENU)?.openMenu(it.whoClicked)
             }
         )
     )

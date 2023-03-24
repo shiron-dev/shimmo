@@ -8,11 +8,11 @@ abstract class ItemCommonClass {
     abstract val item: ItemStack
     abstract val customItemTag: CustomItemTags
 
-    abstract fun getCustomItemTagString(): String?
+    protected abstract fun getCustomItemTagString(): String?
 
-    abstract fun setCustomItemTagString(value: String)
+    protected abstract fun setCustomItemTagString(value: String)
 
-    fun setItem(name: String, lore: List<String>? = null) {
+    protected fun setItem(name: String, lore: List<String>? = null) {
         setCustomItemTagString(customItemTag.customTag)
         val meta = item.itemMeta
         meta?.setDisplayName(name)
