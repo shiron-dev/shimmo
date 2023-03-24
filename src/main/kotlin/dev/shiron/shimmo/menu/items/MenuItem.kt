@@ -10,7 +10,6 @@ abstract class MenuItem : ItemCommonClass() {
     fun onClickItemEvent(event: InventoryClickEvent) {
         if (isThisItem(event.currentItem)) {
             onClickItem(event)
-            event.isCancelled = true
         }
     }
 

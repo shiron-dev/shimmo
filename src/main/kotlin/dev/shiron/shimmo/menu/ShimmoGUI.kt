@@ -39,6 +39,7 @@ abstract class ShimmoGUI : Listener {
             for (item in itemList.flatten()) {
                 item?.let { getMenuItemClass(it)?.onClickItemEvent(event) }
             }
+            event.isCancelled = true
         }
     }
 }
